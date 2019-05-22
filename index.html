@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Javascript Topics</title>
+    <style>
+        
+        *{
+            margin:0;
+            padding:0;
+        }
+        body{
+            padding: 25px;
+            position: relative;
+        }
+        p{
+            margin-top: 20px;
+        }
+        pre{
+            background-color: rgb(63, 61, 61);
+            color: #fff;
+            position: relative;
+        }
+        button{
+            position: absolute;
+            top: 0;
+            right: 0;
+            cursor: pointer;
+            background: green;
+            color: #fff;
+            border: none;
+            padding: 5px 15px;
+            outline: none;
+        }
+        .layout{
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: rgba(0,0,0,.6);
+            display: none;
+            overflow: hidden;
+            line-height: 1.4;
+        }
+        .layout p{
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .box{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            min-height: 300px;
+            transform: translate(-50%,0);
+            background: #fff;
+            padding: 15px;
+        }
+        #result,#analaysis{
+            padding:0 15px;
+        }
+    </style>
+</head>
+<body>
+    <p>1、</p>
+    <pre>
+
+        var a = 20;
+        var obj = {
+            a:10,
+            getA:function(){
+                return console.log(this.a);
+            }
+        }
+        var foo = obj.getA;
+
+        //问：执行面代码控制台会输出什么内容,为什么？
+        foo();
+        <button onclick="showFun(1)">答案及解析</button>
+    </pre>
+    <p>2、</p>
+    <pre>        
+        var a = 20;
+        var obj = {
+            a:10,
+            getA:function(){
+                return function(){
+                    return console.log(this.a);
+                }                
+            }
+        }
+        
+        //问：执行面代码控制台会输出什么内容,为什么？
+        obj.getA()();
+        <button onclick="showFun(2)">答案及解析</button>
+    </pre>
+    <p>3、</p>
+    <pre>        
+        var obj1 = {name:'obj1'},
+            obj2 = {name:'obj2'},
+            obj3 = {name:'obj3'};
+
+        function say(){
+            return console.log(this.name);
+        }
+        var fn = say.bind(obj1).bind(obj2).bind(obj3);
+
+        //问：执行面代码控制台会输出什么内容,为什么？
+        fn();
+        <button onclick="showFun(3)">答案及解析</button>
+    </pre>
+    <p>4、</p>
+    <pre>        
+        使用typeof返回的数据类型有哪些？ 
+        <button onclick="showFun(4)">答案及解析</button>
+    </pre>
+    <p>5、</p>
+    <pre>        
+        写出冒泡排序算法。 时间复杂度O(n^2);
+        <button onclick="showFun(5)">答案及解析</button>
+    </pre>
+
+
+
+
+    <!-- 弹窗 -->
+    <div id="layout" class="layout">
+        <div id="box" class="box">
+            <div id="content" class="content">
+                <p id="resultTitle">输出结果：</p>
+                <div id="result"></div>
+                <p id="analaysisTitle">解析：</p>
+                <div id="analaysis"></div>
+            </div>
+            <button onclick="closeLayout()">关闭</button>
+        </div>
+    </div>
+
+<script>
+
+var anwserData = [
+    {
+        result:'20',
+        analaysis:'foo = obj.getA 即：<br> foo = function(){return console.log(this.a)} //尚未执行<br> 当执行foo()时，执行环境在外部，此时this的指向是最外层window,所以this.a为20;<br> 此题主要考察对作用域环境的理解。'
+    },
+    {
+        result:'20',
+        analaysis:'当执行obj.getA()时，结果为 function(){return console.log(this.a)},<br>再执行该函数时 执行上下文仍是window,所以this.a = 20；<br>该题主要考察函数的执行上下文。'
+    },
+    {
+        result:'obj1',
+        analaysis:'javaScript函数的参数绑定方法bind,当多次执行时只会执行一次，并且为第一次绑定结果；因为函数使用bind方法时，会返回一个新的函数，此时this指向发生更改，所以后续绑定不会生效。'
+    },
+    {
+        result:'6种：string,number,boolean,object,function,undefined',
+        analaysis:'易错点：typeof null == object <br> typof [] == object <br> typof NaN == number;<br>区分object、function 使用 a instanceof Array方法。'
+    },
+    {
+        result:`<pre>
+                var arr = [3,1,4,2,5];
+                function bubbleSort(arr){
+                    var length = arr.length;
+                    for (var i = 0; i < arr.length; i++) {
+                        for (let j = 0; j < arr.length-1; j++) {
+                            if(arr[j] > arr[j+1]){
+                                swap(arr,j,j+1)//交换位置
+                            }
+                        }
+                    }
+                    return arr;
+                } 
+                function swap(arr,a,b){
+                    var aIn = arr[a];
+                    arr[a] = arr[b];
+                    arr[b] = aIn;
+                }
+                console.log(bubbleSort(arr));
+                </pre>`,
+        analaysis:''
+    }
+]
+
+function showFun(number){
+    document.getElementById('result').innerHTML = anwserData[number-1].result;
+    document.getElementById('analaysis').innerHTML = anwserData[number-1].analaysis;
+    document.getElementById('layout').style.display = 'block';
+    document.getElementById('box').style.top = window.scrollY+100+'px';
+    document.getElementsByTagName('body')[0].style.overflow = 'hidden';
+    
+}
+
+function closeLayout(){
+    document.getElementById('layout').style.display = 'none';
+    document.getElementsByTagName('body')[0].style.overflow = 'auto';
+}
+            
+            
+    </script>
+</body>
+</html>
