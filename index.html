@@ -124,7 +124,11 @@
         写出冒泡排序算法。 时间复杂度O(n^2);
         <button onclick="showFun(5)">答案及解析</button>
     </pre>
-
+    <p>6、</p>
+    <pre>        
+        写出Vue和React的优缺点;
+        <button onclick="showFun(6)">答案及解析</button>
+    </pre>
 
 
 
@@ -182,6 +186,25 @@ var anwserData = [
                 console.log(bubbleSort(arr));
                 </pre>`,
         analaysis:''
+    },{
+        result:`
+                Vue是响应式设计思想，基于数据可变的搭建Web应用视图的渐进式js库。
+                React是函数式的设计思想，基于数据不可变的单向数据流渲染Web视图的js库。
+                `,
+        analaysis:
+                `
+                1、处理方式不同：Vue是把html、css、js写到一个文件中，html提供了模板引擎来处理。<br>
+                   而React的思路是all in js，通过js来生成html，设计了jsx，还有通过js来操作css.<br>
+                2、Vue数据是可变的，对每个属性建立Watcher来监听，当属性变化的时候，响应式的更新对应的虚拟dom。<br>
+                   而React在setState之后会重新走渲染的流程，如果shouldComponentUpdate返回的是true，就继续渲染，如果返回了false，就不会重新渲染。<br>
+                   所以React的性能优化需要手动去做，而Vue的性能优化是自动的，<br>
+                   但是vue的响应式机制也有问题，就是当state特别多的时候，Watcher也会很多，会导致卡顿，<br>
+                   所以大型应用（状态特别多的）一般用react，更加可控。<br>
+                3、Vue内置API很多，而Reactf很少。<br>
+
+                两者都推崇组件化，但对数据的感知不同，一个通过Watcher方法,一个通过setState()方法，<br>
+                Vue追求开发的简单，而React更在乎方式的正确性。<br>
+                `
     }
 ]
 
