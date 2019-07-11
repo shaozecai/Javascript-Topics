@@ -6,7 +6,7 @@
 
 
 ## Author
-- Email - admin@shaozeci.com
+- Email - shaozecai@shaozecai.com
 - Web site - https://shaozecai.com
 
 ## Version
